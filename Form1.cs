@@ -19,12 +19,28 @@ namespace navegadorWeb
 
         private void buttonIr_Click(object sender, EventArgs e)
         {
-            webBrowser1.Navigate(new Uri(comboBox1.SelectedItem.ToString()));
+          
 
-            //string uri = comboBox1.Text; 
+            if(comboBox1.Text.Contains("https://"))
+            {
+                webBrowser1.Navigate(new Uri(comboBox1.Text.ToString()));
+            }
+            if(!comboBox1.Text.Contains("https://"))
+            {
+                if(comboBox1.Text.Contains(".com"))
+                {
+                    webBrowser1.Navigate(new Uri("https://"+comboBox1.Text.ToString()));
 
-            //if(uri.Contains="")
-              //  webBrowser1.Navigate(new Uri(comboBox1.Text));
+                }
+            }
+           if(!comboBox1.Text.Contains("https://"))
+           {
+                if (!comboBox1.Text.Contains(".com"))
+                {
+                    webBrowser1.Navigate(new Uri("https://www.google.com/search?q=" + comboBox1.Text.ToString()));
+                }
+
+            }
 
         }
 
@@ -60,8 +76,8 @@ namespace navegadorWeb
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //comboBox1.SelectedIndex = 0;
-           // webBrowser1.GoHome();
+           // comboBox1.SelectedIndex = 0;
+         //  webBrowser1.GoHome();
         }
     }
 }
