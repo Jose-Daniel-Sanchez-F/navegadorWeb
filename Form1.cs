@@ -65,9 +65,23 @@ namespace navegadorWeb
                 uri = "https://" + uri;
 
             webBrowser1.Navigate(new Uri(uri));
-            comboBox1.Items.Add(uri);
-            Guardar("Historial.txt", uri);
 
+
+            int yaesta = 0;
+
+            for (int i = 0; i < comboBox1.Items.Count; i++)
+            {
+                if (comboBox1.Items[i].ToString() ==uri)
+                    yaesta++;
+            }
+
+            if (yaesta == 0)
+            {
+
+                comboBox1.Items.Add(uri);
+                Guardar("Historial.txt", uri);
+
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -100,10 +114,24 @@ namespace navegadorWeb
             this.Close();
         }
 
+        private void Leer( string fileName)
+        {
+                FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(stream);
+
+                while (reader.Peek() > -1)
+
+                {
+                   // richTextBox1.AppendText(reader.ReadLine());
+                   comboBox1.Items.Add(reader.ReadLine());
+                 }
+                reader.Close();
+            
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-           // comboBox1.SelectedIndex = 0;
-         //  webBrowser1.GoHome();
+            Leer("Historial.txt");
         }
     }
 }
