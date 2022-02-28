@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +17,18 @@ namespace navegadorWeb
         {
             InitializeComponent();
         }
-
+        private void Guardar(string fileName, string texto)
+        {
+            
+            FileStream stream = new FileStream(fileName, FileMode.Append, FileAccess.Write);
+           
+            StreamWriter writer = new StreamWriter(stream);
+            writer.WriteLine(texto);
+            writer.Close();
+        }
         private void buttonIr_Click(object sender, EventArgs e)
         {
-          
+            /*
 
             if(comboBox1.Text.Contains("https://"))
             {
@@ -41,6 +50,23 @@ namespace navegadorWeb
                 }
 
             }
+           */
+            string uri = "";
+
+            if (comboBox1!=null)
+                uri = comboBox1.Text;
+            else if (comboBox1.SelectedItem!=null)
+                uri=comboBox1.SelectedItem.ToString();
+
+            if (!uri.Contains("."))
+                uri = "https://www.google.com/search?q=" + uri;
+
+            if (!uri.Contains("https://"))
+                uri = "https://" + uri;
+
+            webBrowser1.Navigate(new Uri(uri));
+            comboBox1.Items.Add(uri);
+            Guardar("Historial.txt", uri);
 
         }
 
