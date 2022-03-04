@@ -133,5 +133,10 @@ namespace navegadorWeb
         {
             Leer("Historial.txt");
         }
+
+        private void másVisitadasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
